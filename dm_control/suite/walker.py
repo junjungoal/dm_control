@@ -35,6 +35,7 @@ _STAND_HEIGHT = 1.2
 # Horizontal speeds (meters/second) above which move reward is 1.
 _WALK_SPEED = 1
 _RUN_SPEED = 8
+_BACKWARD_SPEED = -1
 
 
 SUITE = containers.TaggedTasks()
@@ -77,6 +78,15 @@ def run(time_limit=_DEFAULT_TIME_LIMIT, random=None, environment_kwargs=None):
       physics, task, time_limit=time_limit, control_timestep=_CONTROL_TIMESTEP,
       **environment_kwargs)
 
+@SUITE.add('benchmarking')
+def backward(time_limit=_DEFAULT_TIME_LIMIT, random=None, environment_kwargs=None):
+  """Returns the Run task."""
+  physics = Physics.from_xml_string(*get_model_and_assets())
+  task = PlanarWalker(move_speed=_BACKWARD_SPEED, random=random)
+  environment_kwargs = environment_kwargs or {}
+  return control.Environment(
+      physics, task, time_limit=time_limit, control_timestep=_CONTROL_TIMESTEP,
+      **environment_kwargs)
 
 class Physics(mujoco.Physics):
   """Physics simulation with additional features for the Walker domain."""
