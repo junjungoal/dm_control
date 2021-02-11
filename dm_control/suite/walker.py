@@ -166,7 +166,7 @@ class PlanarWalker(base.Task):
       jumping = rewards.tolerance(physics.torso_height(),
                                  bounds=(_JUMP_HEIGHT, float('inf')),
                                  margin=_JUMP_HEIGHT/2)
-      jumping_reward = (3*jumping_reward + upright) / 4 # get rid of upright?
+      jumping_reward = (3*jumping + upright) / 4 # get rid of upright?
       return jumping_reward
     standing = rewards.tolerance(physics.torso_height(),
                                  bounds=(_STAND_HEIGHT, float('inf')),
